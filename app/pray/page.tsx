@@ -1,78 +1,7 @@
-import { Adhan, NumberPrayerTimes } from "adhan-clock";
+import { Adhan } from "adhan-clock";
 import { initializeApp } from "firebase/app";
-import { Firestore, doc, getDoc, getFirestore } from "firebase/firestore";
-// Your web app's Firebase configuration
-
-async function getPrayerData(db: Firestore): Promise<PrayerData> {
-  const docRef = doc(db, "prayers", "prayerData");
-  const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-    return docSnap.data() as PrayerData;
-  }
-
-  throw "No such document!";
-}
-
-function getIqamahTimes(
-  prayTimes: NumberPrayerTimes,
-  hardcodedTimes: any,
-  offsetTimes: any
-) {
-  const prayerNames = [
-    "fajr",
-    "sunrise",
-    "dhuhr",
-    "asr",
-    "maghrib",
-    "isha",
-  ] as const;
-
-  return prayerNames.map((prayer) => ({
-    name: prayer,
-    adhan: to12HourFormat(prayTimes[prayer]),
-    iqamah: getIqamahTime(prayer, hardcodedTimes, prayTimes, offsetTimes),
-  }));
-}
-
-type RegularPrayerNames =
-  | "fajr"
-  | "sunrise"
-  | "dhuhr"
-  | "asr"
-  | "maghrib"
-  | "isha";
-function getIqamahTime(
-  timeName: RegularPrayerNames,
-  hardcodedTimes: HardcodedIqamahTimes,
-  prayTimes: NumberPrayerTimes,
-  offsetTimes: IqamahOffset
-): string {
-  let hardcodedTime = hardcodedTimes[timeName];
-  if (hardcodedTime !== undefined) {
-    return hardcodedTime;
-  }
-
-  let time = prayTimes[timeName];
-  let offset = offsetTimes[timeName];
-  if (offset !== undefined) {
-    time += offset / 60;
-  }
-  return to12HourFormat(time);
-}
-
-function to12HourFormat(time: number): string {
-  let minutes = Math.round(time * 60);
-  let hours = Math.floor(minutes / 60) % 24;
-  minutes %= 60;
-
-  let suffix = hours < 12 ? "am" : "pm";
-  hours = hours % 12 || 12;
-
-  return `${hours.toString().padStart(2, "0")}:${minutes
-    .toString()
-    .padStart(2, "0")} ${suffix}`;
-}
+import { getIqamahTimes, getPrayerData } from "@/app/lib/prayerTimes";
+import { getFirestore } from "firebase/firestore";
 
 export default async function Pray() {
   const firebaseConfig = {
@@ -87,9 +16,9 @@ export default async function Pray() {
   const db = getFirestore(app);
   const prayerData = await getPrayerData(db);
   const adhan = new Adhan();
-  const date = new Date();
+  const today = new Date();
   const prayTimes = adhan.getTimes(
-    date,
+    today,
     [-37.8226, 145.0354],
     "auto",
     "auto",
@@ -101,13 +30,12 @@ export default async function Pray() {
     ...getIqamahTimes(prayTimes, hardcodedTimes, offsetTimes),
     ...prayerData.friday,
   ];
-  console.log(outputTimes);
   return (
-    <div className="min-h-screen grid place-items-center place-content-center">
-      <h1 className="text-xl">Swinburne Musalla</h1>
-      <h2 className="text-lg">Prayer Schedule</h2>
-      <p>{new Date().toDateString()}</p>
-      <a href="https://goo.gl/maps/929uYtPHYsTE9GFn8" className="underline">
+    <div className="min-h-screen grid place-items-center place-content-center bg-[#25283a] text-white font-sans">
+      <h1 className="text-4xl font-yeseva">Swinburne Musalla</h1>
+      <h2 className="text-2xl font-yeseva">Prayer Schedule</h2>
+      <p className="text-xl">{today.toDateString()}</p>
+      <a href="https://goo.gl/maps/929uYtPHYsTE9GFn8" className="">
         <span>
           Level 3, GS Building, 34 Wakefield Street, Swinburne University of
           Technology, Hawthorn VIC
@@ -134,30 +62,3 @@ export default async function Pray() {
     </div>
   );
 }
-
-type PrayerData = {
-  hardcodedIqamah: HardcodedIqamahTimes;
-  iqamahOffset: IqamahOffset;
-  friday: {
-    adhan: string;
-    iqamah: string;
-    name: "jumu'ah 1" | "jumu'ah 2";
-  }[];
-};
-
-/** Number of minutes from athan to iqamah */
-type IqamahOffset = {
-  [name in OutputPrayerNames]?: number;
-};
-
-type OutputPrayerNames =
-  | "fajr"
-  | "sunrise"
-  | "dhuhr"
-  | "asr"
-  | "maghrib"
-  | "isha"
-  | "jumu'ah 1"
-  | "jumu'ah 2";
-
-type HardcodedIqamahTimes = Partial<Record<OutputPrayerNames, string>>;

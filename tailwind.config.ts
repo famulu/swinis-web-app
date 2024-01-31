@@ -13,6 +13,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        "yeseva": ['var(--font-yeseva-one)'],
+        "sans": ['var(--font-open-sans)'],
+      },
     },
   },
   plugins: [],
