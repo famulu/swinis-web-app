@@ -1,6 +1,6 @@
 import { Adhan } from "adhan-clock";
 import { initializeApp } from "firebase/app";
-import { getIqamahTimes, getPrayerData } from "@/app/lib/prayerTimes";
+import { getIqamahTimes, getPrayerData } from "@/lib/prayerTimes";
 import { getFirestore } from "firebase/firestore";
 
 export default async function Pray() {

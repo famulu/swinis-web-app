@@ -16,6 +16,8 @@ const config: Config = {
       fontFamily: {
         "yeseva": ['var(--font-yeseva-one)'],
         "sans": ['var(--font-open-sans)'],
+        "signika": ['var(--font-signika)'],
+        "garamond": ['var(--font-eb-garamond)'],
       },
     },
   },

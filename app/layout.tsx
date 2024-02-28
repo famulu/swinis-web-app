@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { openSans, yesevaOne } from "@/app/lib/fonts";
+import { openSans, yesevaOne, signika, garamond } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${openSans.variable} ${yesevaOne.variable}`}>
+    <html
+      lang="en"
+      className={`${openSans.variable} ${yesevaOne.variable} ${signika.variable} ${garamond.variable}`}
+    >
       <body className="font-sans">{children}</body>
     </html>
   );
