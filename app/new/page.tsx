@@ -129,26 +129,35 @@ export default function Page() {
             src="/welcome-back.png"
             width={450}
             height={450}
-            alt="Welcome Back Event Po  ster"
+            alt="Welcome Back Event Poster"
           />
         </div>
-        <div className="relative">
-          <Image
-            src={donationBox}
-            alt="Donation Box"
-            className="absolute -z-10"
-          />
-          <div className="flex flex-col items-end p-14 py-16 text-2xl gap-8 ml-auto w-[50%]">
+        <div className="relative ">
+          <Image src={donationBox} alt="Donation Box" className="" />
+          <div className="flex flex-col items-end p-4 lg:p-14 lg:py-16 text-2xl lg:gap-8 ml-auto w-[50%] gap-4 z-20 absolute top-0 right-0">
             <h2 className="text-4xl font-bold text-[#144560]">Support Us</h2>
             <p>
               Prophet Muhammad ﷺ said: "The believer's shade on the Day of
               Resurrection will be their charity."
             </p>
             <p className="self-center">(Tirmidhi)</p>
-            <div className="p-4"></div>
             <button className="self-center text-[#144560] bg-white italic p-1 px-4 rounded hover:underline">
               Donate Now
             </button>
+          </div>
+        </div>
+        <div className="bg-[url('/shapes.png')] p-10 bg-[#95B0C9] text-2xl font-bold">
+          <h2 className="text-white text-3xl font-bold">Recent Event Reels</h2>
+          <div className="flex justify-center gap-32 pt-4">
+            <div className="h-40 bg-[#D9D9D9] rounded-3xl px-32 py-64">
+              Reel 1
+            </div>
+            <div className="h-40 bg-[#D9D9D9] rounded-3xl  px-32 py-64">
+              Reel 2
+            </div>
+            <div className="h-40 bg-[#D9D9D9] rounded-3xl  px-32 py-64">
+              Reel 3
+            </div>
           </div>
         </div>
       </main>
