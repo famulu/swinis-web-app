@@ -1,3 +1,4 @@
+import { count } from "console";
 import { signika } from "../../lib/fonts";
 import Image from "next/image";
 
@@ -11,6 +12,12 @@ export default function Page() {
     { prayer: "Isha", adhaan: "9:45 PM", iqaamah: "10:00 PM" },
   ];
 
+  const countdown = {
+    days: 11,
+    hours: 11,
+    min: 11,
+    sec: 11,
+  };
   return (
     <>
       <nav>
@@ -31,13 +38,13 @@ export default function Page() {
       </nav>
       <main>
         <div className="flex">
-          <div className="bg-[url('/white-mosque.png')] flex flex-col items-center w-[897px] grow h-[665px] bg-center bg-no-repeat bg-cover pt-[42px]">
+          <div className="bg-[url('/white-mosque.png')] flex flex-col items-center w-[897px] grow h-[665px] bg-center bg-no-repeat bg-cover pt-[42px] md:px-32">
             <Image src="/shahada.png" alt="Shahada" width={218} height={94} />
-            <h1 className=" font-garamond text-center font-medium text-6xl text-[#47341C]">
+            <h1 className="font-garamond text-center font-medium text-6xl text-[#47341C]">
               Welcome to Swinburne Islamic Society
             </h1>
           </div>
-          <div className="flex flex-col bg-[url('/patterned-blue.png')] items-center pt-[18px] text-white px-9">
+          <div className="flex flex-col bg-[url('/patterned-blue.png')] items-center pt-[18px] text-white px-9 max-w-[450px]">
             <Image
               src="/allah.png"
               width={120}
@@ -77,7 +84,54 @@ export default function Page() {
                 })}
               </tbody>
             </table>
+            <div className="text-center text-sm pt-4">
+              GS308 (Brothers), GS305 (Sisters) | Level 3, George Building (GS),
+              Swinburne University of Technology (Hawthorn Campus )
+            </div>
           </div>
+        </div>
+        <div className="flex">
+          <div className="flex flex-col justify-center items-center gap-4 py-8 bg-[#104766] text-white grow">
+            <h2 className="text-2xl text-[#C59A5D] font-bold">
+              Upcoming Event
+            </h2>
+            <p>Welcome Back Week First Sem 2024</p>
+            <div className="flex flex-row text-2xl text-[#144560] gap-1">
+              {Object.entries(countdown).map(([key, value], index, array) => (
+                <>
+                  <div key={key} className="flex flex-col items-center">
+                    <div className="flex gap-1">
+                      {value
+                        .toString()
+                        .split("")
+                        .map((num, i) => {
+                          return (
+                            <span key={i} className="bg-[#D9D9D9] p-1 rounded">
+                              {num}
+                            </span>
+                          );
+                        })}
+                    </div>
+                    <div className="text-white uppercase text-sm font-bold">
+                      {key}
+                    </div>
+                  </div>
+                  {index < array.length - 1 && (
+                    <span className="text-[#C59A5D]">:</span>
+                  )}
+                </>
+              ))}
+            </div>
+            <button className="bg-[#95B0C9] text-[#144560] italic text-xl p-1 px-2 rounded font-medium">
+              All Events
+            </button>
+          </div>
+          <Image
+            src="/welcome-back.png"
+            width={450}
+            height={450}
+            alt="Welcome Back Event Poster"
+          />
         </div>
       </main>
     </>
