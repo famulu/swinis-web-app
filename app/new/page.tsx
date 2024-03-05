@@ -188,11 +188,11 @@ export default function Page() {
               Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum
               Loreum Ipsum Loreum Ipsum Loreum Ipsum
             </div>
-            <div className="flex">
-              <FaYoutube />
-              <FaFacebook />
-              <FaInstagram />
-              <FaLinkedin />
+            <div className="flex gap-2 pt-2">
+              <FaYoutube size={32} />
+              <FaFacebook size={32} />
+              <FaInstagram size={32} />
+              <FaLinkedin size={32} />
             </div>
           </div>
           <div>
