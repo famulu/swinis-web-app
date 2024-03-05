@@ -1,5 +1,6 @@
 import Image from "next/image";
 import donationBox from "../../public/donate-bg.png";
+import fancyShape from "@/public/fancy-shape.png";
 
 export default function Page() {
   const prayerTimes = [
@@ -157,6 +158,22 @@ export default function Page() {
             </div>
             <div className="h-40 bg-[#D9D9D9] rounded-3xl  px-32 py-64">
               Reel 3
+            </div>
+          </div>
+        </div>
+        <div className="bg-[url('/shapes.png')] p-10 bg-[#144560] text-2xl font-bold text-white">
+          <h2 className="text-[#C59A5D] text-3xl font-bold text-end">
+            Our Services
+          </h2>
+          <div className="flex justify-center gap-16 pt-4">
+            <div className="h-40 rounded-3xl px-32 py-64 bg-[url('/fancy-shape.png')] bg-cover bg-no-repeat">
+              Generic
+            </div>
+            <div className="h-40 rounded-3xl mt-20 px-32 py-64 bg-[url('/fancy-shape.png')] bg-cover bg-no-repeat">
+              Generic
+            </div>
+            <div className="h-40 rounded-3xl px-32 mt-40 py-64 bg-[url('/fancy-shape.png')] bg-cover bg-no-repeat">
+              Generic
             </div>
           </div>
         </div>
