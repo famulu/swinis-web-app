@@ -1,6 +1,8 @@
 import Image from "next/image";
 import donationBox from "../../public/donate-bg.png";
 import fancyShape from "@/public/fancy-shape.png";
+import { MdEmail } from "react-icons/md";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 
 export default function Page() {
   const prayerTimes = [
@@ -178,6 +180,37 @@ export default function Page() {
           </div>
         </div>
       </main>
+      <footer className="bg-[#95B0C9] p-8 text-white">
+        <div className="flex gap-32">
+          <div>
+            <h2 className="text-3xl font-bold text-[#144560]">About Us</h2>
+            <div className="pt-2">
+              Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum
+              Loreum Ipsum Loreum Ipsum Loreum Ipsum
+            </div>
+            <div className="flex">
+              <FaYoutube />
+              <FaFacebook />
+              <FaInstagram />
+              <FaLinkedin />
+            </div>
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold text-[#144560]">Contact Us</h2>
+            <div className="pt-2">
+              GS308 (Brothers), GS305 (Sisters) | Level 3, George Building (GS),
+              Swinburne University of Technology (Hawthorn Campus )
+            </div>
+            <div className="flex items-center gap-1 pt-2">
+              <MdEmail />
+              <a href="mailto:contactus@swinis.org">contactus@swinis.org</a>
+            </div>
+          </div>
+        </div>
+        <div className="text-center pt-6">
+          All Right Reserved @Swinburne Islamic Society
+        </div>
+      </footer>
     </>
   );
 }
