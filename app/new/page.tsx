@@ -1,6 +1,5 @@
-import { count } from "console";
-import { signika } from "../../lib/fonts";
 import Image from "next/image";
+import donationBox from "../../public/donate-bg.png";
 
 export default function Page() {
   const prayerTimes = [
@@ -21,7 +20,7 @@ export default function Page() {
   return (
     <>
       <nav>
-        <ul className="font-signika flex px-[132px] py-4 justify-between items-center text-xl">
+        <ul className="font-signika flex px-[132px] py-4 justify-between items-center text-xl font-bold">
           <li>Home</li>
           <li>Library</li>
           <li>
@@ -130,8 +129,27 @@ export default function Page() {
             src="/welcome-back.png"
             width={450}
             height={450}
-            alt="Welcome Back Event Poster"
+            alt="Welcome Back Event Po  ster"
           />
+        </div>
+        <div className="relative">
+          <Image
+            src={donationBox}
+            alt="Donation Box"
+            className="absolute -z-10"
+          />
+          <div className="flex flex-col items-end p-14 py-16 text-2xl gap-8 ml-auto w-[50%]">
+            <h2 className="text-4xl font-bold text-[#144560]">Support Us</h2>
+            <p>
+              Prophet Muhammad ﷺ said: "The believer's shade on the Day of
+              Resurrection will be their charity."
+            </p>
+            <p className="self-center">(Tirmidhi)</p>
+            <div className="p-4"></div>
+            <button className="self-center text-[#144560] bg-white italic p-1 px-4 rounded hover:underline">
+              Donate Now
+            </button>
+          </div>
         </div>
       </main>
     </>
