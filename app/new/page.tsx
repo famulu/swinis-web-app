@@ -1,6 +1,6 @@
 import Image from "next/image";
 import donationBox from "../../public/donate-bg.png";
-import { MdEmail } from "react-icons/md";
+import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 
 export default function Page() {
@@ -203,6 +203,18 @@ export default function Page() {
             <div className="flex items-center gap-1 pt-2">
               <MdEmail />
               <a href="mailto:contactus@swinis.org">contactus@swinis.org</a>
+            </div>
+            <div className="flex items-center gap-1 pt-2">
+              <MdPhone />
+              <a href={`tel:${process.env.INTERNATIONAL_PHONE}`}>
+                {process.env.LOCAL_PHONE}
+              </a>
+            </div>
+            <div className="flex items-center gap-1 pt-2">
+              <MdWhatsapp />
+              <a href={`https://wa.me/{process.env.WHATSAPP_PHONE}`}>
+                Chat on WhatsApp
+              </a>
             </div>
           </div>
         </div>
