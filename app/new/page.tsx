@@ -1,6 +1,5 @@
 import Image from "next/image";
 import donationBox from "../../public/donate-bg.png";
-import fancyShape from "@/public/fancy-shape.png";
 import { MdEmail } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 
@@ -135,13 +134,13 @@ export default function Page() {
             alt="Welcome Back Event Poster"
           />
         </div>
-        <div className="relative ">
-          <Image src={donationBox} alt="Donation Box" className="" />
+        <div className="relative">
+          <Image src={donationBox} alt="Donation Box" />
           <div className="flex flex-col items-end p-4 lg:p-14 lg:py-16 text-2xl lg:gap-8 ml-auto w-[50%] gap-4 z-20 absolute top-0 right-0">
             <h2 className="text-4xl font-bold text-[#144560]">Support Us</h2>
             <p>
-              Prophet Muhammad ﷺ said: "The believer's shade on the Day of
-              Resurrection will be their charity."
+              Prophet Muhammad ﷺ said: &quot;The believer&apos;s shade on the
+              Day of Resurrection will be their charity.&quot;
             </p>
             <p className="self-center">(Tirmidhi)</p>
             <button className="self-center text-[#144560] bg-white italic p-1 px-4 rounded hover:underline">
