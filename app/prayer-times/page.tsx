@@ -22,7 +22,7 @@ export default async function Pray() {
     [-37.8226, 145.0354],
     "auto",
     "auto",
-    "Float"
+    "Float",
   );
   const hardcodedTimes = prayerData.hardcodedIqamah;
   const offsetTimes = prayerData.iqamahOffset;
@@ -31,9 +31,9 @@ export default async function Pray() {
     ...prayerData.friday,
   ];
   return (
-    <div className="min-h-screen grid place-items-center place-content-center bg-[#25283a] text-white font-sans">
-      <h1 className="text-4xl font-yeseva">Swinburne Musalla</h1>
-      <h2 className="text-2xl font-yeseva">Prayer Schedule</h2>
+    <div className="grid min-h-screen place-content-center place-items-center bg-[#25283a] font-sans text-white">
+      <h1 className="font-yeseva text-4xl">Swinburne Musalla</h1>
+      <h2 className="font-yeseva text-2xl">Prayer Schedule</h2>
       <p className="text-xl">{today.toDateString()}</p>
       <a href="https://goo.gl/maps/929uYtPHYsTE9GFn8" className="">
         <span>

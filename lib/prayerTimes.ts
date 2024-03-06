@@ -4,7 +4,7 @@ import { Firestore, doc, getDoc } from "firebase/firestore";
 export function getIqamahTimes(
   prayTimes: NumberPrayerTimes,
   hardcodedTimes: any,
-  offsetTimes: any
+  offsetTimes: any,
 ) {
   const prayerNames = [
     "fajr",
@@ -33,7 +33,7 @@ export function getIqamahTime(
   timeName: RegularPrayerNames,
   hardcodedTimes: HardcodedIqamahTimes,
   prayTimes: NumberPrayerTimes,
-  offsetTimes: IqamahOffset
+  offsetTimes: IqamahOffset,
 ): string {
   let hardcodedTime = hardcodedTimes[timeName];
   if (hardcodedTime !== undefined) {
@@ -89,12 +89,12 @@ export type OutputPrayerNames =
 export type HardcodedIqamahTimes = Partial<Record<OutputPrayerNames, string>>;
 
 export async function getPrayerData(db: Firestore): Promise<PrayerData> {
-    const docRef = doc(db, "prayers", "prayerData");
-    const docSnap = await getDoc(docRef);
+  const docRef = doc(db, "prayers", "prayerData");
+  const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      return docSnap.data() as PrayerData;
-    }
-
-    throw "No such document!";
+  if (docSnap.exists()) {
+    return docSnap.data() as PrayerData;
   }
+
+  throw "No such document!";
+}

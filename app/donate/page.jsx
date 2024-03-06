@@ -4,7 +4,7 @@ import { PaymentForm, CreditCard } from "react-square-web-payments-sdk";
 
 export default function Page() {
   return (
-    <div className="grid place-content-center min-h-screen">
+    <div className="grid min-h-screen place-content-center">
       <div className="w-fit">
         <PaymentForm
           applicationId="sandbox-sq0idb-m44QXynEl8VBo7XqpxkEIw"

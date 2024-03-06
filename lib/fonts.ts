@@ -10,19 +10,19 @@ export const yesevaOne = Yeseva_One({
 
 export const openSans = Open_Sans({
   subsets: ["latin"],
-  variable: '--font-open-sans',
+  variable: "--font-open-sans",
   display: "swap",
 });
 
 export const signika = Signika({
   subsets: ["latin"],
   display: "swap",
-  variable: '--font-signika'
-})
+  variable: "--font-signika",
+});
 
 export const garamond = EB_Garamond({
-  weight: '500',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-eb-garamond'
-})
+  weight: "500",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-eb-garamond",
+});
