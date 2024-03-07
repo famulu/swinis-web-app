@@ -9,6 +9,8 @@ import { getFirestore } from "firebase/firestore";
 import { getIqamahTimes, getPrayerData } from "@/lib/prayerTimes";
 import { Adhan } from "adhan-clock";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   const firebaseConfig = {
     apiKey: "AIzaSyCcoJg9kN0xqk54DdgJXLjBAvODeW01JVs",
