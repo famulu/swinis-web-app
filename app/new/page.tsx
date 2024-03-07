@@ -222,7 +222,7 @@ export default function Page() {
             </div>
             <div className="flex items-center gap-1 pt-2">
               <MdWhatsapp />
-              <a href={`https://wa.me/{process.env.WHATSAPP_PHONE}`}>
+              <a href={`https://wa.me/${process.env.WHATSAPP_PHONE}`}>
                 Chat on WhatsApp
               </a>
             </div>
