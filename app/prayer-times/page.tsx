@@ -20,7 +20,7 @@ export default async function Pray() {
   const prayTimes = adhan.getTimes(
     today,
     [-37.8226, 145.0354],
-    "auto",
+    11,
     "auto",
     "Float",
   );
