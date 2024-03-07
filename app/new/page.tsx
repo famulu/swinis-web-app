@@ -4,15 +4,38 @@ import swinisLogo from "@/public/swinis.png";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { Fragment } from "react";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getIqamahTimes, getPrayerData } from "@/lib/prayerTimes";
+import { Adhan } from "adhan-clock";
 
-export default function Page() {
-  const prayerTimes = [
-    { prayer: "Fajr", adhaan: "5:45 AM", iqaamah: "6:00 AM" },
-    { prayer: "Sunrise", adhaan: "7:45 AM", iqaamah: "8:00 AM" },
-    { prayer: "Dhuhr", adhaan: "12:45 PM", iqaamah: "1:00 PM" },
-    { prayer: "Asr", adhaan: "3:45 PM", iqaamah: "4:00 PM" },
-    { prayer: "Maghrib", adhaan: "7:45 PM", iqaamah: "8:00 PM" },
-    { prayer: "Isha", adhaan: "9:45 PM", iqaamah: "10:00 PM" },
+export default async function Page() {
+  const firebaseConfig = {
+    apiKey: "AIzaSyCcoJg9kN0xqk54DdgJXLjBAvODeW01JVs",
+    authDomain: "up-ng-swinis-website.firebaseapp.com",
+    projectId: "up-ng-swinis-website",
+    storageBucket: "up-ng-swinis-website.appspot.com",
+    messagingSenderId: "864939860773",
+    appId: "1:864939860773:web:94b178435c2ca687ce70cc",
+  };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const prayerData = await getPrayerData(db);
+  const HAWTHORN_COORDINATES: [number, number] = [-37.8226, 145.0354];
+  const adhan = new Adhan();
+  const today = new Date();
+  const prayTimes = adhan.getTimes(
+    today,
+    HAWTHORN_COORDINATES,
+    "auto",
+    "auto",
+    "Float",
+  );
+  const hardcodedTimes = prayerData.hardcodedIqamah;
+  const offsetTimes = prayerData.iqamahOffset;
+  const outputTimes = [
+    ...getIqamahTimes(prayTimes, hardcodedTimes, offsetTimes),
+    ...prayerData.friday,
   ];
 
   const countdown = {
@@ -69,18 +92,20 @@ export default function Page() {
                 </tr>
               </thead>
               <tbody>
-                {prayerTimes.map((time, index) => {
+                {outputTimes.map((prayer, index, array) => {
                   const border =
-                    index < prayerTimes.length - 1 ? "border-b-[1px]" : "";
+                    index < array.length - 1 ? "border-b-[1px]" : "";
 
                   return (
-                    <tr key={time.prayer} className={`${border}`}>
-                      <td className="py-2 font-[850]">{time.prayer}</td>
-                      <td className="px-3 py-2 text-center font-[850]">
-                        {time.adhaan}
+                    <tr key={prayer.name} className={`${border}`}>
+                      <td className="py-2 font-[850] capitalize">
+                        {prayer.name}
                       </td>
-                      <td className="px-3 py-2 text-center font-[850]">
-                        {time.iqaamah}
+                      <td className="px-3 py-2 text-center font-[850] uppercase">
+                        {prayer.adhan}
+                      </td>
+                      <td className="px-3 py-2 text-center font-[850] uppercase">
+                        {prayer.iqamah}
                       </td>
                     </tr>
                   );
