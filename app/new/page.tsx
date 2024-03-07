@@ -3,6 +3,7 @@ import donationBox from "@/public/donate-box.webp";
 import swinisLogo from "@/public/swinis.png";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { Fragment } from "react";
 
 export default function Page() {
   const prayerTimes = [
@@ -107,7 +108,7 @@ export default function Page() {
             <p>Welcome Back Week First Sem 2024</p>
             <div className="flex flex-row gap-1 text-2xl text-[#144560]">
               {Object.entries(countdown).map(([key, value], index, array) => (
-                <>
+                <Fragment key={key}>
                   <div key={key} className="flex flex-col items-center">
                     <div className="flex gap-1">
                       {value
@@ -128,7 +129,7 @@ export default function Page() {
                   {index < array.length - 1 && (
                     <span className="text-[#C59A5D]">:</span>
                   )}
-                </>
+                </Fragment>
               ))}
             </div>
             <button className="rounded bg-[#95B0C9] p-1 px-2 text-xl font-medium italic text-[#144560]">
