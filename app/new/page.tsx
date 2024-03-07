@@ -199,10 +199,18 @@ export default function Page() {
               Loreum Ipsum Loreum Ipsum Loreum Ipsum
             </div>
             <div className="flex gap-2 pt-2">
-              <FaYoutube size={32} />
-              <FaFacebook size={32} />
-              <FaInstagram size={32} />
-              <FaLinkedin size={32} />
+              <a href="https://www.youtube.com/@swinburne.islamic">
+                <FaYoutube size={32} />
+              </a>
+              <a href="https://www.facebook.com/Swinburneislamic/">
+                <FaFacebook size={32} />
+              </a>
+              <a href="https://www.instagram.com/swinburne.islamic/">
+                <FaInstagram size={32} />
+              </a>
+              <a href="https://www.linkedin.com/company/swinburneislamic/">
+                <FaLinkedin size={32} />
+              </a>
             </div>
           </div>
           <div>
