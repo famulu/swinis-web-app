@@ -31,6 +31,7 @@ export default async function Page() {
     "auto",
     "Float",
   );
+  console.log(prayTimes);
   const hardcodedTimes = prayerData.hardcodedIqamah;
   const offsetTimes = prayerData.iqamahOffset;
   const outputTimes = [
