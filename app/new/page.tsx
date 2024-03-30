@@ -8,6 +8,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getIqamahTimes, getPrayerData } from "@/lib/prayerTimes";
 import { Adhan } from "adhan-clock";
+import { DateTime } from "luxon";
 
 export const dynamic = "force-dynamic";
 
@@ -25,12 +26,14 @@ export default async function Page() {
   const prayerData = await getPrayerData(db);
   const HAWTHORN_COORDINATES: [number, number] = [-37.8226, 145.0354];
   const adhan = new Adhan();
-  const today = new Date();
+  
+  const now = DateTime.now().setZone("Australia/Melbourne");
+  const timezoneOffset = (now.offset / 60) - (now.isInDST ? 1 : 0);
   const prayTimes = adhan.getTimes(
-    today,
+    [now.year, now.month, now.day],
     HAWTHORN_COORDINATES,
-    "auto",
-    "auto",
+    timezoneOffset,
+    now.isInDST ? 1 : 0,
     "Float",
   );
   console.log(prayTimes);
