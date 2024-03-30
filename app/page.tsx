@@ -271,13 +271,15 @@ export default async function Page() {
       </main>
       <footer className="bg-[#95B0C9] p-4 text-sm text-white lg:p-8">
         <div className="flex gap-4 lg:gap-32">
-          <div>
+          <div className="grow basis-0">
             <h2 className="text-3xl font-bold text-[#144560]">About Us</h2>
             <div className="pt-2">
-              Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum
-              Loreum Ipsum Loreum Ipsum Loreum Ipsum
+              At SWINIS, we strive to create a supportive community for Muslim
+              students & staff at Swinburne University of Technology to practice
+              their faith, connect with other Muslims, and engage in social and
+              educational activities.
             </div>
-            <div className="flex gap-2 pt-2">
+            <div className="flex gap-2 pt-4">
               <a href="https://www.youtube.com/@swinburne.islamic">
                 <FaYoutube size={32} />
               </a>
@@ -292,7 +294,7 @@ export default async function Page() {
               </a>
             </div>
           </div>
-          <div>
+          <div className="grow basis-0">
             <h2 className="text-3xl font-bold text-[#144560]">Contact Us</h2>
             <div className="pt-2">
               GS308 (Brothers), GS305 (Sisters) | Level 3, George Building (GS),
