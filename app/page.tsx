@@ -1,6 +1,11 @@
 import Image from "next/image";
 import donationBox from "@/public/donate-box.webp";
 import swinisLogo from "@/public/swinis.png";
+import bluePattern from "@/public/patterned-blue.png";
+import shapes from "@/public/shapes.png";
+import shapes2 from "@/public/shapes-2.png";
+import whiteMosque from "@/public/white-mosque.png";
+import fancyShape from "@/public/fancy-shape.png";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { Fragment } from "react";
@@ -78,13 +83,23 @@ export default async function Page() {
       </nav>
       <main>
         <div className="lg:flex">
-          <div className="flex h-[665px] grow flex-col items-center bg-[url('/white-mosque.png')] bg-cover bg-center bg-no-repeat pt-[42px] md:px-32 lg:w-[897px]">
+          <div className="relative flex h-[665px] grow flex-col items-center pt-[42px] md:px-32 lg:w-[897px]">
+            <Image
+              src={whiteMosque}
+              alt="White Mosque"
+              className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
+            />
             <Image src="/shahada.png" alt="Shahada" width={218} height={94} />
             <h1 className="text-center font-garamond text-6xl font-medium text-[#47341C]">
               Welcome to Swinburne Islamic Society
             </h1>
           </div>
-          <div className="flex flex-col items-center bg-[url('/patterned-blue.png')] p-4 px-9 text-white lg:max-w-[450px]">
+          <div className="relative flex flex-col items-center p-4 px-9 text-white lg:max-w-[450px]">
+            <Image
+              src={bluePattern}
+              alt="Blue Pattern"
+              className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
+            />
             <Image
               src="/allah.png"
               width={120}
@@ -198,7 +213,12 @@ export default async function Page() {
         </div>
         <div className="bg-[#868686] p-3"></div>
         <div className="bg-[#646464] p-3"></div>
-        <div className="bg-[#95B0C9] bg-[url('/shapes.png')] p-5 text-lg font-bold lg:p-10 lg:text-2xl">
+        <div className="relative -z-20 bg-[#95B0C9] p-5 text-lg font-bold lg:p-10 lg:text-2xl">
+          <Image
+            src={shapes}
+            alt="Fancy Shape"
+            className="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-30"
+          />
           <h2 className="text-2xl font-bold text-white lg:text-3xl">
             Recent Event Reels
           </h2>
@@ -214,17 +234,37 @@ export default async function Page() {
             </div>
           </div>
         </div>
-        <div className="bg-[#144560] bg-[url('/shapes.png')] p-5 text-lg font-bold text-white lg:p-10 lg:text-2xl">
+        <div className="relative -z-20 bg-[#144560] p-5 text-lg font-bold text-white lg:p-10 lg:text-2xl">
+          <Image
+            src={shapes2}
+            alt="Fancy Shape"
+            className="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-30"
+          />
           <h2 className="text-end text-3xl text-[#C59A5D]">Our Services</h2>
           <div className="flex items-start justify-around pt-4">
-            <div className="flex aspect-[2/3] w-[25%] flex-col items-center justify-center rounded-3xl bg-[url('/fancy-shape.png')] bg-cover bg-no-repeat">
-              Generic
+            <div className="relative flex aspect-[2/3] w-[25%] flex-col items-center justify-center">
+              <Image
+                src={fancyShape}
+                alt="Fancy Shape"
+                className="absolute -z-10 h-full w-full rounded-3xl object-cover object-right-top"
+              />
+              Daily Iftars
             </div>
-            <div className="mt-10 flex aspect-[2/3] w-[25%] flex-col items-center justify-center rounded-3xl bg-[url('/fancy-shape.png')] bg-cover bg-no-repeat lg:mt-20">
-              Generic
+            <div className="relative mt-10 flex aspect-[2/3] w-[25%] flex-col items-center justify-center rounded-3xl lg:mt-20">
+              <Image
+                src={fancyShape}
+                alt="Fancy Shape"
+                className="absolute -z-10 h-full w-full rounded-3xl object-cover object-right-top"
+              />
+              5 Daily Prayers
             </div>
-            <div className="mt-20 flex aspect-[2/3] w-[25%] flex-col items-center justify-center rounded-3xl bg-[url('/fancy-shape.png')] bg-cover bg-no-repeat lg:mt-40">
-              Generic
+            <div className="relative mt-20 flex aspect-[2/3] w-[25%] flex-col items-center justify-center rounded-3xl lg:mt-40">
+              <Image
+                src={fancyShape}
+                alt="Fancy Shape"
+                className="absolute -z-10 h-full w-full rounded-3xl object-cover object-right-top"
+              />
+              Library
             </div>
           </div>
         </div>
