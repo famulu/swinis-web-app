@@ -21,7 +21,17 @@ export default async function Page() {
 
   const coordinates = new Coordinates(-37.8226, 145.0354);
   const params = CalculationMethod.MuslimWorldLeague();
-  const prayerTimes = new PrayerTimes(coordinates, new Date(), params);
+  const dateTimeFormatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Australia/Melbourne",
+    timeStyle: "short",
+    dateStyle: "short"
+  });
+  const today = new Date()
+  const dateTuple = dateTimeFormatter.format(today).split(",")[0].split('/').toReversed().map(v => +v)
+  today.setFullYear(dateTuple[0])
+  today.setMonth(dateTuple[1] - 1)
+  today.setDate(dateTuple[2])
+  const prayerTimes = new PrayerTimes(coordinates, today, params);
   const prayerNames = [
     "fajr",
     "sunrise",
@@ -54,6 +64,16 @@ export default async function Page() {
     ...fridayPrayers,
   ];
 
+
+  // @ts-ignore
+  let secToNextPrayer = Math.floor((prayerTimes.timeForPrayer(prayerTimes.nextPrayer()) - (new Date())) / 1000)
+  let minutesToNextPrayer = Math.floor(secToNextPrayer / 60)
+
+  let hourToNextPrayer = Math.floor(minutesToNextPrayer / 60)
+  minutesToNextPrayer = minutesToNextPrayer % 60
+
+
+  const nextPrayer = prayerTimes.nextPrayer()
   const countdown = {
     days: 0,
     hours: 0,
@@ -97,12 +117,17 @@ export default async function Page() {
               Prayer Time
             </div>
             <div className="pb-3 text-xl">Prayer time in Swinburne Musalla</div>
-            <div className="flex w-full justify-between bg-[#C59A5D] rounded-xl px-2 font-bold">
-              <span >
-                Next: <span className="capitalize">{prayerTimes.nextPrayer() === 'none' ? 'fajr' : prayerTimes.nextPrayer()}</span>
-              </span>
-              <span>4h 38min 27s</span>
-            </div>
+            {
+              nextPrayer !== 'none' && (
+                <div className="flex w-full justify-between bg-[#C59A5D] rounded-xl px-2 font-bold">
+                <span >
+                  Next: <span className="capitalize">{nextPrayer}</span>
+                </span>
+                <span>{hourToNextPrayer}h {minutesToNextPrayer}min</span>
+              </div>
+              )
+            }
+           
             <table className="text-xl w-full">
               <thead>
                 <tr className="text-[#C59A5D]">
