@@ -1,11 +1,9 @@
 import Image from "next/image";
 import donationBox from "@/public/donate-box.webp";
 import swinisLogo from "@/public/swinis.png";
-import bluePattern from "@/public/patterned-blue.png";
-import shapes from "@/public/shapes.png";
 import shapes2 from "@/public/shapes-2.png";
-import whiteMosque from "@/public/white-mosque.png";
 import fancyShape from "@/public/fancy-shape.png";
+import banner from "@/public/banner.png"
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { Fragment } from "react";
@@ -57,18 +55,20 @@ export default async function Page() {
   ];
 
   const countdown = {
-    days: 11,
-    hours: 11,
-    min: 11,
-    sec: 11,
+    days: 0,
+    hours: 0,
+    min: 0,
+    sec: 0,
   };
-
   return (
     <>
-      <nav>
-        <ul className="flex items-center justify-between p-2 font-signika lg:px-[132px] lg:text-xl lg:font-bold">
-          <li>Home</li>
-          <li>Library</li>
+      <nav className="z-0 relative">
+        <Image
+          src={banner}
+          alt="Fancy Shape"
+          className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
+        />
+        <ul className="flex items-center lg:justify-center p-2 font-signika  lg:text-xl lg:font-bold">
           <li>
             <Image
               src={swinisLogo}
@@ -77,28 +77,15 @@ export default async function Page() {
               height={63}
             />
           </li>
-          <li>Gallery</li>
-          <li>About Us</li>
         </ul>
       </nav>
       <main>
         <div className="lg:flex">
-          <div className="relative flex h-[665px] grow flex-col items-center pt-[42px] md:px-32 lg:w-[897px]">
+          <div className="lg:order-1 bg-[#144560] z-0 relative flex flex-col items-center p-4 px-9 text-white lg:max-w-[450px]">
             <Image
-              src={whiteMosque}
-              alt="White Mosque"
-              className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
-            />
-            <Image src="/shahada.png" alt="Shahada" width={218} height={94} />
-            <h1 className="text-center font-garamond text-6xl font-medium text-[#47341C]">
-              Welcome to Swinburne Islamic Society
-            </h1>
-          </div>
-          <div className="relative flex flex-col items-center p-4 px-9 text-white lg:max-w-[450px]">
-            <Image
-              src={bluePattern}
-              alt="Blue Pattern"
-              className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
+              src={shapes2}
+              alt="Fancy Shape"
+              className="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-20"
             />
             <Image
               src="/allah.png"
@@ -110,7 +97,13 @@ export default async function Page() {
               Prayer Time
             </div>
             <div className="pb-3 text-xl">Prayer time in Swinburne Musalla</div>
-            <table className="text-xl">
+            <div className="flex w-full justify-between bg-[#C59A5D] rounded-xl px-2 font-bold">
+              <span >
+                Next: <span className="capitalize">{prayerTimes.nextPrayer() === 'none' ? 'fajr' : prayerTimes.nextPrayer()}</span>
+              </span>
+              <span>4h 38min 27s</span>
+            </div>
+            <table className="text-xl w-full">
               <thead>
                 <tr className="text-[#C59A5D]">
                   <th></th>
@@ -125,8 +118,10 @@ export default async function Page() {
                   const border =
                     index < array.length - 1 ? "border-b-[1px]" : "";
 
+                  const bg = "opacity-100"
+
                   return (
-                    <tr key={prayer.name} className={`${border}`}>
+                    <tr key={prayer.name} className={`${border} ${index !== 4 && bg} ${index === 4 && "text-[#C59A5D]"}`}>
                       <td className="py-2 font-[850] capitalize">
                         {prayer.name}
                       </td>
@@ -146,20 +141,21 @@ export default async function Page() {
               Swinburne University of Technology (Hawthorn Campus )
             </div>
           </div>
+          <div className=" lg:flex relative flex lg:h-[665px] h-[350px] grow flex-col items-center lg:w-[897px]">
+            <iframe className="grow w-full" src="https://www.youtube.com/embed/hOi14yCp9PY?si=2AttNtQDcaoux7PV" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          </div>
         </div>
-        <div className="lg:flex lg:flex-row-reverse">
-          <Image
-            src="/welcome-back.png"
-            width={450}
-            height={450}
-            className="w-full lg:w-auto"
-            alt="Welcome Back Event Poster"
-          />
-          <div className="flex grow flex-col items-center justify-center gap-4 bg-[#104766] py-8 text-white">
-            <h2 className="text-2xl font-bold text-[#C59A5D]">
+        <div className="lg:flex">
+          <div className="relative z-0 flex grow flex-col items-center justify-center gap-4 bg-[#104766] py-8 text-white">
+            <Image
+              src={shapes2}
+              alt="Fancy Shape"
+              className="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-30"
+            />
+            <h2 className="text-[#C59A5D] font-bold text-xl">
               Upcoming Event
             </h2>
-            <p>Welcome Back Week First Sem 2024</p>
+            <p className=" text-2xl italic">Qiyam-ul-Layl</p>
             <div className="flex flex-row gap-1 text-2xl text-[#144560]">
               {Object.entries(countdown).map(([key, value], index, array) => (
                 <Fragment key={key}>
@@ -167,6 +163,7 @@ export default async function Page() {
                     <div className="flex gap-1">
                       {value
                         .toString()
+                        .padStart(2, '0')
                         .split("")
                         .map((num, i) => {
                           return (
@@ -186,10 +183,14 @@ export default async function Page() {
                 </Fragment>
               ))}
             </div>
-            <button className="rounded bg-[#95B0C9] p-1 px-2 text-xl font-medium italic text-[#144560]">
-              All Events
-            </button>
           </div>
+          <Image
+            src="/qiyam.png"
+            width={450}
+            height={450}
+            className="w-full lg:w-auto"
+            alt="Qiyam-ul-Layl Poster"
+          />
         </div>
         <div className="flex h-full bg-gradient-to-tr from-[#f2edea] via-[#e5d5c8] via-90% to-[#d2b7a2] p-4 lg:p-8">
           <Image
@@ -206,34 +207,13 @@ export default async function Page() {
               Day of Resurrection will be their charity.&quot;
             </p>
             <p className="self-center">(Tirmidhi)</p>
-            <button className="self-center rounded bg-white p-1 px-4 italic text-[#144560] hover:underline">
+            <a href="https://square.link/u/7K6VkFZn" className="self-center rounded bg-white p-1 px-4 italic text-[#144560] hover:underline">
               Donate Now
-            </button>
+            </a>
           </div>
         </div>
         <div className="bg-[#868686] p-3"></div>
         <div className="bg-[#646464] p-3"></div>
-        <div className="relative -z-20 bg-[#95B0C9] p-5 text-lg font-bold lg:p-10 lg:text-2xl">
-          <Image
-            src={shapes}
-            alt="Fancy Shape"
-            className="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-30"
-          />
-          <h2 className="text-2xl font-bold text-white lg:text-3xl">
-            Recent Event Reels
-          </h2>
-          <div className="flex items-start justify-around gap-4 pt-4 lg:gap-32">
-            <div className="flex aspect-[4/10] w-[20%] flex-col items-center justify-center rounded-3xl bg-[#D9D9D9]">
-              Reel 1
-            </div>
-            <div className="flex aspect-[4/10] w-[20%] flex-col items-center justify-center rounded-3xl bg-[#D9D9D9]">
-              Reel 2
-            </div>
-            <div className="flex aspect-[4/10] w-[20%] flex-col items-center justify-center rounded-3xl bg-[#D9D9D9]">
-              Reel 3
-            </div>
-          </div>
-        </div>
         <div className="relative -z-20 bg-[#144560] p-5 text-lg font-bold text-white lg:p-10 lg:text-2xl">
           <Image
             src={shapes2}
@@ -242,37 +222,43 @@ export default async function Page() {
           />
           <h2 className="text-end text-3xl text-[#C59A5D]">Our Services</h2>
           <div className="flex items-start justify-around pt-4">
-            <div className="relative flex aspect-[2/3] w-[25%] flex-col items-center justify-center">
+            <div className="relative flex aspect-[2/3] w-[30%] flex-col items-center justify-center text-center">
               <Image
                 src={fancyShape}
                 alt="Fancy Shape"
                 className="absolute -z-10 h-full w-full rounded-3xl object-cover object-right-top"
               />
-              Daily Iftars
+              <span className="mt-10">
+                Daily Iftars
+              </span>
             </div>
-            <div className="relative mt-10 flex aspect-[2/3] w-[25%] flex-col items-center justify-center rounded-3xl lg:mt-20">
+            <div className="relative mt-10 flex aspect-[2/3] w-[30%] flex-col items-center justify-center rounded-3xl text-center lg:mt-20">
               <Image
                 src={fancyShape}
                 alt="Fancy Shape"
                 className="absolute -z-10 h-full w-full rounded-3xl object-cover object-right-top"
               />
-              5 Daily Prayers
+              <span className="mt-10">
+                5 Daily Prayers
+              </span>
             </div>
-            <div className="relative mt-20 flex aspect-[2/3] w-[25%] flex-col items-center justify-center rounded-3xl lg:mt-40">
+            <div className="relative mt-20 flex aspect-[2/3] w-[30%] flex-col items-center justify-center rounded-3xl lg:mt-40">
               <Image
                 src={fancyShape}
                 alt="Fancy Shape"
                 className="absolute -z-10 h-full w-full rounded-3xl object-cover object-right-top"
               />
-              Library
+              <span className="mt-10">
+                Library
+              </span>
             </div>
           </div>
         </div>
       </main>
-      <footer className="bg-[#95B0C9] p-4 text-sm text-white lg:p-8">
+      <footer className="bg-[#95B0C9] p-2 text-xs text-white lg:p-3">
         <div className="flex gap-4 lg:gap-32">
           <div className="grow basis-0">
-            <h2 className="text-3xl font-bold text-[#144560]">About Us</h2>
+            <h2 className="text-2xl font-bold text-[#144560]">About Us</h2>
             <div className="pt-2">
               At SWINIS, we strive to create a supportive community for Muslim
               students & staff at Swinburne University of Technology to practice
@@ -295,7 +281,7 @@ export default async function Page() {
             </div>
           </div>
           <div className="grow basis-0">
-            <h2 className="text-3xl font-bold text-[#144560]">Contact Us</h2>
+            <h2 className="text-2xl font-bold text-[#144560]">Contact Us</h2>
             <div className="pt-2">
               GS308 (Brothers), GS305 (Sisters) | Level 3, George Building (GS),
               Swinburne University of Technology (Hawthorn Campus )
