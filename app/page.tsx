@@ -27,7 +27,8 @@ export default async function Page() {
     dateStyle: "short"
   });
   const today = new Date()
-  const dateTuple = dateTimeFormatter.format(today).split(",")[0].split('/').toReversed().map(v => +v)
+  let dateStringTuple = dateTimeFormatter.format(today).split(",")[0].split('/').reverse()
+  const dateTuple = dateStringTuple.map(v => +v)
   today.setFullYear(dateTuple[0])
   today.setMonth(dateTuple[1] - 1)
   today.setDate(dateTuple[2])
