@@ -144,10 +144,8 @@ export default async function Page() {
                   const border =
                     index < array.length - 1 ? "border-b-[1px]" : "";
 
-                  const bg = "opacity-100"
-
                   return (
-                    <tr key={prayer.name} className={`${border} ${index !== 4 && bg} ${index === 4 && "text-[#C59A5D]"}`}>
+                    <tr key={prayer.name} className={border}>
                       <td className="py-2 font-[850] capitalize">
                         {prayer.name}
                       </td>
