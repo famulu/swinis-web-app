@@ -3,7 +3,7 @@ import donationBox from "@/public/donate-box.webp";
 import swinisLogo from "@/public/swinis.png";
 import shapes2 from "@/public/shapes-2.png";
 import fancyShape from "@/public/fancy-shape.png";
-import banner from "@/public/banner.png"
+import banner from "@/public/banner.png";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { Fragment } from "react";
@@ -24,14 +24,18 @@ export default async function Page() {
   const dateTimeFormatter = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Australia/Melbourne",
     timeStyle: "short",
-    dateStyle: "short"
+    dateStyle: "short",
   });
-  const today = new Date()
-  let dateStringTuple = dateTimeFormatter.format(today).split(",")[0].split('/').reverse()
-  const dateTuple = dateStringTuple.map(v => +v)
-  today.setFullYear(dateTuple[0])
-  today.setMonth(dateTuple[1] - 1)
-  today.setDate(dateTuple[2])
+  const today = new Date();
+  let dateStringTuple = dateTimeFormatter
+    .format(today)
+    .split(",")[0]
+    .split("/")
+    .reverse();
+  const dateTuple = dateStringTuple.map((v) => +v);
+  today.setFullYear(dateTuple[0]);
+  today.setMonth(dateTuple[1] - 1);
+  today.setDate(dateTuple[2]);
   const prayerTimes = new PrayerTimes(coordinates, today, params);
   const prayerNames = [
     "fajr",
@@ -65,16 +69,14 @@ export default async function Page() {
     ...fridayPrayers,
   ];
 
-
   // @ts-ignore
-  let secToNextPrayer = Math.floor((prayerTimes.timeForPrayer(prayerTimes.nextPrayer()) - (new Date())) / 1000)
-  let minutesToNextPrayer = Math.floor(secToNextPrayer / 60)
+  let secToNextPrayer = Math.floor((prayerTimes.timeForPrayer(prayerTimes.nextPrayer()) - new Date()) / 1000);
+  let minutesToNextPrayer = Math.floor(secToNextPrayer / 60);
 
-  let hourToNextPrayer = Math.floor(minutesToNextPrayer / 60)
-  minutesToNextPrayer = minutesToNextPrayer % 60
+  let hourToNextPrayer = Math.floor(minutesToNextPrayer / 60);
+  minutesToNextPrayer = minutesToNextPrayer % 60;
 
-
-  const nextPrayer = prayerTimes.nextPrayer()
+  const nextPrayer = prayerTimes.nextPrayer();
   const countdown = {
     days: 0,
     hours: 0,
@@ -83,13 +85,13 @@ export default async function Page() {
   };
   return (
     <>
-      <nav className="z-0 relative">
+      <nav className="relative z-0">
         <Image
           src={banner}
           alt="Fancy Shape"
           className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
         />
-        <ul className="flex items-center lg:justify-center p-2 font-signika  lg:text-xl lg:font-bold">
+        <ul className="flex items-center p-2 font-signika lg:justify-center  lg:text-xl lg:font-bold">
           <li>
             <Image
               src={swinisLogo}
@@ -102,10 +104,11 @@ export default async function Page() {
       </nav>
       <main>
         <div className="lg:flex">
-          <div className="lg:order-1 bg-[#144560] z-0 relative flex flex-col items-center p-4 px-9 text-white lg:max-w-[450px]">
+          <div className="relative z-0 flex flex-col items-center bg-[#144560] p-4 px-5 text-white lg:order-1 lg:max-w-[450px] lg:px-9">
             <Image
               src={shapes2}
               alt="Fancy Shape"
+              priority={true}
               className="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-20"
             />
             <Image
@@ -118,18 +121,18 @@ export default async function Page() {
               Prayer Time
             </div>
             <div className="pb-3 text-xl">Prayer time in Swinburne Musalla</div>
-            {
-              nextPrayer !== 'none' && (
-                <div className="flex w-full justify-between bg-[#C59A5D] rounded-xl px-2 font-bold">
-                <span >
+            {nextPrayer !== "none" && (
+              <div className="flex w-full justify-between rounded-xl bg-[#C59A5D] px-2 font-bold">
+                <span>
                   Next: <span className="capitalize">{nextPrayer}</span>
                 </span>
-                <span>{hourToNextPrayer}h {minutesToNextPrayer}min</span>
+                <span>
+                  {hourToNextPrayer}h {minutesToNextPrayer}min
+                </span>
               </div>
-              )
-            }
-           
-            <table className="text-xl w-full">
+            )}
+
+            <table className="w-full text-lg">
               <thead>
                 <tr className="text-[#C59A5D]">
                   <th></th>
@@ -165,8 +168,16 @@ export default async function Page() {
               Swinburne University of Technology (Hawthorn Campus )
             </div>
           </div>
-          <div className=" lg:flex relative flex lg:h-[665px] h-[350px] grow flex-col items-center lg:w-[897px]">
-            <iframe className="grow w-full" src="https://www.youtube.com/embed/hOi14yCp9PY?si=2AttNtQDcaoux7PV" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          <div className=" relative flex h-[350px] grow flex-col items-center lg:flex lg:h-[665px] lg:w-[897px]">
+            <iframe
+              className="w-full grow"
+              src="https://www.youtube.com/embed/hOi14yCp9PY?si=2AttNtQDcaoux7PV"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
         <div className="lg:flex">
@@ -176,9 +187,7 @@ export default async function Page() {
               alt="Fancy Shape"
               className="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-30"
             />
-            <h2 className="text-[#C59A5D] font-bold text-xl">
-              Upcoming Event
-            </h2>
+            <h2 className="text-xl font-bold text-[#C59A5D]">Upcoming Event</h2>
             <p className=" text-2xl italic">Qiyam-ul-Layl</p>
             <div className="flex flex-row gap-1 text-2xl text-[#144560]">
               {Object.entries(countdown).map(([key, value], index, array) => (
@@ -187,7 +196,7 @@ export default async function Page() {
                     <div className="flex gap-1">
                       {value
                         .toString()
-                        .padStart(2, '0')
+                        .padStart(2, "0")
                         .split("")
                         .map((num, i) => {
                           return (
@@ -231,7 +240,10 @@ export default async function Page() {
               Day of Resurrection will be their charity.&quot;
             </p>
             <p className="self-center">(Tirmidhi)</p>
-            <a href="https://square.link/u/7K6VkFZn" className="self-center rounded bg-white p-1 px-4 italic text-[#144560] hover:underline">
+            <a
+              href="https://square.link/u/7K6VkFZn"
+              className="self-center rounded bg-white p-1 px-4 italic text-[#144560] hover:underline"
+            >
               Donate Now
             </a>
           </div>
@@ -252,9 +264,7 @@ export default async function Page() {
                 alt="Fancy Shape"
                 className="absolute -z-10 h-full w-full rounded-3xl object-cover object-right-top"
               />
-              <span className="mt-10">
-                Daily Iftars
-              </span>
+              <span className="mt-10">Daily Iftars</span>
             </div>
             <div className="relative mt-10 flex aspect-[2/3] w-[30%] flex-col items-center justify-center rounded-3xl text-center lg:mt-20">
               <Image
@@ -262,9 +272,7 @@ export default async function Page() {
                 alt="Fancy Shape"
                 className="absolute -z-10 h-full w-full rounded-3xl object-cover object-right-top"
               />
-              <span className="mt-10">
-                5 Daily Prayers
-              </span>
+              <span className="mt-10">5 Daily Prayers</span>
             </div>
             <div className="relative mt-20 flex aspect-[2/3] w-[30%] flex-col items-center justify-center rounded-3xl lg:mt-40">
               <Image
@@ -272,9 +280,7 @@ export default async function Page() {
                 alt="Fancy Shape"
                 className="absolute -z-10 h-full w-full rounded-3xl object-cover object-right-top"
               />
-              <span className="mt-10">
-                Library
-              </span>
+              <span className="mt-10">Library</span>
             </div>
           </div>
         </div>
