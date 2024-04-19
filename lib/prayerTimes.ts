@@ -1,30 +1,22 @@
 import { initializeApp } from "firebase/app";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 
-export type RegularPrayerNames =
-  | "fajr"
-  | "sunrise"
-  | "dhuhr"
-  | "asr"
-  | "maghrib"
-  | "isha";
+export type Iqamah =
+  | { offset: number; type: "offset" }
+  | { iqamah: string; type: "fixed" };
 
-export type OutputPrayerNames = RegularPrayerNames | "jumu'ah 1" | "jumu'ah 2";
+export type FridayPrayer = { adhan: string };
 
-/** Number of minutes from athan to iqamah */
-export type IqamahOffset = {
-  [name in RegularPrayerNames]?: number;
-};
-
-export type HardcodedIqamahTimes = Partial<Record<OutputPrayerNames, string>>;
 export type PrayerData = {
-  hardcodedIqamah: HardcodedIqamahTimes;
-  iqamahOffset: IqamahOffset;
+  fajr: Iqamah;
+  dhuhr: Iqamah;
+  asr: Iqamah;
+  maghrib: Iqamah;
+  isha: Iqamah;
   friday: {
-    adhan: string;
-    iqamah: string;
-    name: "jumu'ah 1" | "jumu'ah 2";
-  }[];
+    "jumu'ah 1": FridayPrayer;
+    "jumu'ah 2": FridayPrayer;
+  };
 };
 
 export async function getPrayerData(): Promise<PrayerData> {
