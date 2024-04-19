@@ -3,7 +3,7 @@ import { CalculationMethod, Coordinates, PrayerTimes } from "adhan";
 import Image from "next/image";
 import shapes2 from "@/public/shapes-2.png";
 
-export default async function PrayerSchedule(props: { prayerData: PrayerData }) {
+export default function PrayerSchedule(props: { prayerData: PrayerData }) {
   const prayerData = props.prayerData;
   const coordinates = new Coordinates(-37.8226, 145.0354);
   const params = CalculationMethod.MuslimWorldLeague();
