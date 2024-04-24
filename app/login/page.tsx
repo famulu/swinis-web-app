@@ -1,19 +1,30 @@
 "use client";
 
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { FormEvent, useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { auth } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { useState, FormEvent } from "react";
 
 export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   const router = useRouter();
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
 
@@ -30,34 +41,51 @@ export default function Page() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-2">
-      {error && <div className="bg-red-500 p-2 text-white">{error}</div>}
-      <form
-        className="flex w-full flex-col items-center gap-2"
-        onSubmit={handleSubmit}
-      >
-        <input
-          type="email"
-          value={email}
-          autoComplete="email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-72 rounded-md border border-black p-1"
-        />
-        <input
-          type="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-72 rounded-md border border-black p-1"
-        />
-        <button
-          type="submit"
-          disabled={submitting}
-          className={`w-fit rounded-md border border-black p-2 ${submitting ? "bg-gray-300" : "bg-gray-100"}`}
-        >
-          Login
-        </button>
-      </form>
+    <div className="flex min-h-screen flex-col items-center justify-center">
+      <Card className="w-full max-w-sm">
+        {<div className="text-sm font-medium text-destructive">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <CardHeader>
+            <CardTitle className="text-2xl">Login</CardTitle>
+            <CardDescription>
+              Enter your email below to login to your account.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="mail@example.com"
+                required
+                value={email}
+                disabled={submitting}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                required
+                value={password}
+                disabled={submitting}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+              />
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button type="submit" className="w-full" disabled={submitting}>
+              Sign in
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   );
 }
