@@ -18,5 +18,4 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 setPersistence(auth, browserLocalPersistence);
 
-export default app;
-export { auth };
+export { auth, app };
