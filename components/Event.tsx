@@ -61,7 +61,7 @@ export default function Event(props: { imageUrl: string; timestamp: number }) {
         src={props.imageUrl}
         width={450}
         height={450}
-        className="w-full lg:max-w-[450]"
+        className="w-full lg:w-[450px]"
         alt="Event Poster"
       />
     </div>
