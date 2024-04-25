@@ -6,20 +6,15 @@ import fancyShape from "@/public/fancy-shape.png";
 import banner from "@/public/banner.png";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
-import { Fragment } from "react";
-import { getPrayerData } from "@/lib/prayerTimes";
+import { getEventData, getPrayerData } from "@/lib/db";
 import PrayerSchedule from "@/components/PrayerSchedule";
+import Event from "@/components/Event";
 
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
   const prayerData = await getPrayerData();
-  const countdown = {
-    days: 0,
-    hours: 0,
-    min: 0,
-    sec: 0,
-  };
+  const { imageUrl, timestamp } = await getEventData();
   return (
     <>
       <nav className="relative z-0">
@@ -54,51 +49,7 @@ export default async function Page() {
             ></iframe>
           </div>
         </div>
-        <div className="lg:flex">
-          <div className="relative z-0 flex grow flex-col items-center justify-center gap-4 bg-[#104766] py-8 text-white">
-            <Image
-              src={shapes2}
-              alt="Fancy Shape"
-              className="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-30"
-            />
-            <h2 className="text-xl font-bold text-[#C59A5D]">Upcoming Event</h2>
-            <p className=" text-2xl italic">Qiyam-ul-Layl</p>
-            <div className="flex flex-row gap-1 text-2xl text-[#144560]">
-              {Object.entries(countdown).map(([key, value], index, array) => (
-                <Fragment key={key}>
-                  <div key={key} className="flex flex-col items-center">
-                    <div className="flex gap-1">
-                      {value
-                        .toString()
-                        .padStart(2, "0")
-                        .split("")
-                        .map((num, i) => {
-                          return (
-                            <span key={i} className="rounded bg-[#D9D9D9] p-1">
-                              {num}
-                            </span>
-                          );
-                        })}
-                    </div>
-                    <div className="text-sm font-bold uppercase text-white">
-                      {key}
-                    </div>
-                  </div>
-                  {index < array.length - 1 && (
-                    <span className="text-[#C59A5D]">:</span>
-                  )}
-                </Fragment>
-              ))}
-            </div>
-          </div>
-          <Image
-            src="/qiyam.png"
-            width={450}
-            height={450}
-            className="w-full lg:w-auto"
-            alt="Qiyam-ul-Layl Poster"
-          />
-        </div>
+        <Event imageUrl={imageUrl} timestamp={timestamp} />
         <div className="flex h-full bg-gradient-to-tr from-[#f2edea] via-[#e5d5c8] via-90% to-[#d2b7a2] p-4 lg:p-8">
           <Image
             src={donationBox}

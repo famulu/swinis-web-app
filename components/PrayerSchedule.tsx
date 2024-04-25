@@ -1,4 +1,4 @@
-import { PrayerData } from "@/lib/prayerTimes";
+import { PrayerData } from "@/lib/db";
 import { CalculationMethod, Coordinates, PrayerTimes } from "adhan";
 import Image from "next/image";
 import shapes2 from "@/public/shapes-2.png";

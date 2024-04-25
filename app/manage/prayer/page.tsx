@@ -1,6 +1,6 @@
 "use client";
 import { auth } from "@/lib/firebase";
-import { PrayerData, getPrayerData } from "@/lib/prayerTimes";
+import { PrayerData, getPrayerData } from "@/lib/db";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
