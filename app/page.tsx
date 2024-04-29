@@ -11,7 +11,7 @@ import PrayerSchedule from "@/components/PrayerSchedule";
 import Event from "@/components/Event";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 900;
 
 async function PrayerScheduleWrapper() {
   const prayerData = await getPrayerData();
