@@ -6,15 +6,43 @@ import fancyShape from "@/public/fancy-shape.png";
 import banner from "@/public/banner.png";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
-import { getEventData, getPrayerData } from "@/lib/db";
+import { PrayerData, getEventData, getPrayerData } from "@/lib/db";
 import PrayerSchedule from "@/components/PrayerSchedule";
 import Event from "@/components/Event";
+import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 
-export default async function Page() {
+async function PrayerScheduleWrapper() {
   const prayerData = await getPrayerData();
+
+  return <PrayerSchedule prayerData={prayerData} />;
+}
+
+function PrayerScheduleSkeleton() {
+  const skeletonData: PrayerData = {
+    fajr: { type: "fixed", iqamah: "..." },
+    dhuhr: { type: "fixed", iqamah: "..." },
+    asr: { type: "fixed", iqamah: "..." },
+    maghrib: { type: "fixed", iqamah: "..." },
+    isha: { type: "fixed", iqamah: "..." },
+    friday: { "jumu'ah 1": { adhan: "..." }, "jumu'ah 2": { adhan: "..." } },
+  };
+
+  return <PrayerSchedule prayerData={skeletonData} />;
+}
+
+async function EventWrapper() {
   const { imageUrl, timestamp } = await getEventData();
+
+  return <Event imageUrl={imageUrl} timestamp={timestamp} />;
+}
+
+function EventSkeleton() {
+  return <Event imageUrl={"/gray.png"} timestamp={Date.now()} />;
+}
+
+export default function Page() {
   return (
     <>
       <nav className="relative z-0">
@@ -36,7 +64,9 @@ export default async function Page() {
       </nav>
       <main>
         <div className="lg:flex">
-          <PrayerSchedule prayerData={prayerData} />
+          <Suspense fallback={<PrayerScheduleSkeleton />}>
+            <PrayerScheduleWrapper />
+          </Suspense>
           <div className=" relative flex h-[350px] grow flex-col items-center lg:flex lg:h-[665px] lg:w-[897px]">
             <iframe
               className="w-full grow"
@@ -49,7 +79,9 @@ export default async function Page() {
             ></iframe>
           </div>
         </div>
-        <Event imageUrl={imageUrl} timestamp={timestamp} />
+        <Suspense fallback={<EventSkeleton />}>
+          <EventWrapper />
+        </Suspense>
         <div className="flex h-full bg-gradient-to-tr from-[#f2edea] via-[#e5d5c8] via-90% to-[#d2b7a2] p-4 lg:p-8">
           <Image
             src={donationBox}
