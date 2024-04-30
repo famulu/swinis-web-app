@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import PrayerSchedule from "@/components/PrayerSchedule";
 import { initializeApp } from "firebase/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
+import revalidate from "@/app/actions";
 
 export default function Page() {
   const [isValidUser, setIsValidUser] = useState(false);
@@ -261,6 +262,7 @@ export default function Page() {
                 setDoc(docRef, prayerData).then(() =>
                   setAlerts(["Database updated successfully."]),
                 );
+                revalidate()
               }
             }}
           >

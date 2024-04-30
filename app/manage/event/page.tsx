@@ -18,6 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import revalidate from "@/app/actions";
 
 export default function Page() {
   const [isValidUser, setIsValidUser] = useState(false);
@@ -67,6 +68,7 @@ export default function Page() {
       timestamp,
       eventName,
     });
+    revalidate()
     setSubmitting(false);
     setAlert("Event uploaded successfully!");
   }
