@@ -24,6 +24,7 @@ export default function Page() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [eventName, setEventName] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [alert, setAlert] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -61,7 +62,11 @@ export default function Page() {
 
     const db = getFirestore(app);
     const timestamp = Date.parse(`${date}T${time}`);
-    await setDoc(doc(db, "events", "eventData"), { imageUrl: url, timestamp });
+    await setDoc(doc(db, "events", "eventData"), {
+      imageUrl: url,
+      timestamp,
+      eventName,
+    });
     setSubmitting(false);
     setAlert("Event uploaded successfully!");
   }
@@ -82,6 +87,16 @@ export default function Page() {
                 accept="image/*"
                 ref={fileInputRef}
                 required
+                disabled={submitting}
+              />
+            </Label>
+            <Label>
+              Name{" "}
+              <Input
+                type="text"
+                value={eventName}
+                required
+                onChange={(e) => setEventName(e.target.value)}
                 disabled={submitting}
               />
             </Label>
@@ -141,7 +156,13 @@ export default function Page() {
           </CardFooter>
         </form>
       </Card>
-      {imageUrl && <Event timestamp={timestamp} imageUrl={imageUrl} />}
+      {imageUrl && (
+        <Event
+          timestamp={timestamp}
+          imageUrl={imageUrl}
+          eventName={eventName}
+        />
+      )}
     </>
   ) : (
     <div>Loading...</div>

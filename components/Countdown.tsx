@@ -25,9 +25,11 @@ function getTimeLeft(timestamp: number) {
 
 const suffixes = ["days", "hours", "min", "sec"] as const;
 
-export default function Countdown(props: { timestamp: number }) {
+export default function Countdown(props: {
+  timestamp: number;
+  eventName: string;
+}) {
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(props.timestamp));
-  console.log("BOOYAH!");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -57,7 +59,7 @@ export default function Countdown(props: { timestamp: number }) {
         className="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-30"
       />
       <h2 className="text-xl font-bold text-[#C59A5D]">Upcoming Event</h2>
-      <p className=" text-2xl italic">Qiyam-ul-Layl</p>
+      <p className=" text-2xl italic">{props.eventName}</p>
       <div className="flex flex-row gap-1 text-2xl text-[#144560]">
         {suffixes.map((key, index, array) => (
           <Fragment key={key}>

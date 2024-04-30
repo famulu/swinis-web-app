@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Countdown from "./Countdown";
+import { EventData } from "@/lib/db";
 
-export default function Event(props: { imageUrl: string; timestamp: number }) {
+export default function Event(props: EventData) {
   return (
     <div className="lg:flex">
-      <Countdown timestamp={props.timestamp} />
+      <Countdown timestamp={props.timestamp} eventName={props.eventName} />
       <Image
         src={props.imageUrl}
         width={450}

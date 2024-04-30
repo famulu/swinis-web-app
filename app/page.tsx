@@ -33,13 +33,15 @@ function PrayerScheduleSkeleton() {
 }
 
 async function EventWrapper() {
-  const { imageUrl, timestamp } = await getEventData();
+  const { imageUrl, timestamp, eventName } = await getEventData();
 
-  return <Event imageUrl={imageUrl} timestamp={timestamp} />;
+  return (
+    <Event imageUrl={imageUrl} timestamp={timestamp} eventName={eventName} />
+  );
 }
 
 function EventSkeleton() {
-  return <Event imageUrl={"/gray.png"} timestamp={Date.now()} />;
+  return <Event imageUrl={"/gray.png"} timestamp={Date.now()} eventName="" />;
 }
 
 export default function Page() {
