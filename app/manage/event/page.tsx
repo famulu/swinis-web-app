@@ -1,10 +1,7 @@
 "use client";
 
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { app } from "@/lib/firebase";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { Button } from "@/components/ui/button";
@@ -22,7 +19,6 @@ import revalidate from "@/app/actions";
 import { EventData } from "@/lib/db";
 
 export default function Page() {
-  const [isValidUser, setIsValidUser] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -32,27 +28,18 @@ export default function Page() {
   const [eventLink, setEventLink] = useState("");
   const [previewState, setPreviewState] = useState<EventData | null>(null);
 
-  const router = useRouter();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        router.push("/login");
-      } else {
-        setIsValidUser(true);
-      }
-    });
-  }, [router]);
-
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     if (!isFormDataValid()) {
       return;
     }
+
     const imageFile = getFile();
     if (imageFile === null) {
       return;
     }
+
     setSubmitting(true);
     const storage = getStorage(app);
     const eventImageRef = ref(storage, imageFile.name);
@@ -111,7 +98,7 @@ export default function Page() {
     return true;
   }
 
-  return isValidUser ? (
+  return (
     <>
       <Card className="max-w-screen-sm">
         <form onSubmit={handleSubmit}>
@@ -213,7 +200,5 @@ export default function Page() {
         />
       )}
     </>
-  ) : (
-    <div>Loading...</div>
   );
 }
