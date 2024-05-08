@@ -28,6 +28,7 @@ const suffixes = ["days", "hours", "min", "sec"] as const;
 export default function Countdown(props: {
   timestamp: number;
   eventName: string;
+  eventLink: string;
 }) {
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(props.timestamp));
 
@@ -87,6 +88,11 @@ export default function Countdown(props: {
           </Fragment>
         ))}
       </div>
+      {props.eventLink && (
+        <a href={props.eventLink} className="text-lg">
+          Register Here
+        </a>
+      )}
     </div>
   );
 }

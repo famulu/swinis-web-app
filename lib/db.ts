@@ -36,6 +36,7 @@ export type EventData = {
   imageUrl: string;
   timestamp: number;
   eventName: string;
+  eventLink: string;
 };
 
 export async function getEventData(): Promise<EventData> {

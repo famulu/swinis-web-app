@@ -5,7 +5,11 @@ import { EventData } from "@/lib/db";
 export default function Event(props: EventData) {
   return (
     <div className="lg:flex">
-      <Countdown timestamp={props.timestamp} eventName={props.eventName} />
+      <Countdown
+        timestamp={props.timestamp}
+        eventName={props.eventName}
+        eventLink={props.eventLink}
+      />
       <Image
         src={props.imageUrl}
         width={450}

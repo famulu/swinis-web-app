@@ -31,15 +31,27 @@ function PrayerScheduleSkeleton() {
 }
 
 async function EventWrapper() {
-  const { imageUrl, timestamp, eventName } = await getEventData();
+  const { imageUrl, timestamp, eventName, eventLink } = await getEventData();
 
   return (
-    <Event imageUrl={imageUrl} timestamp={timestamp} eventName={eventName} />
+    <Event
+      imageUrl={imageUrl}
+      timestamp={timestamp}
+      eventName={eventName}
+      eventLink={eventLink}
+    />
   );
 }
 
 function EventSkeleton() {
-  return <Event imageUrl={"/gray.png"} timestamp={Date.now()} eventName="" />;
+  return (
+    <Event
+      imageUrl={"/gray.png"}
+      timestamp={Date.now()}
+      eventName=""
+      eventLink=""
+    />
+  );
 }
 
 export default function Page() {
