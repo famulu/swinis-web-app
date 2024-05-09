@@ -33,7 +33,7 @@ export async function getPrayerData(): Promise<PrayerData> {
 }
 
 export type EventData = {
-  imageUrl: string;
+  imageURL: string;
   timestamp: number;
   eventName: string;
   eventLink: string;

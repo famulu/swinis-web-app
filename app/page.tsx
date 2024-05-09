@@ -31,11 +31,11 @@ function PrayerScheduleSkeleton() {
 }
 
 async function EventWrapper() {
-  const { imageUrl, timestamp, eventName, eventLink } = await getEventData();
+  const { imageURL, timestamp, eventName, eventLink } = await getEventData();
 
   return (
     <Event
-      imageUrl={imageUrl}
+      imageURL={imageURL}
       timestamp={timestamp}
       eventName={eventName}
       eventLink={eventLink}
@@ -46,7 +46,7 @@ async function EventWrapper() {
 function EventSkeleton() {
   return (
     <Event
-      imageUrl={"/gray.png"}
+      imageURL={"/gray.png"}
       timestamp={Date.now()}
       eventName=""
       eventLink=""

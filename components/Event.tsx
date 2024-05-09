@@ -11,7 +11,7 @@ export default function Event(props: EventData) {
         eventLink={props.eventLink}
       />
       <Image
-        src={props.imageUrl}
+        src={props.imageURL}
         width={450}
         height={450}
         className="w-full lg:w-[450px]"
