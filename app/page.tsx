@@ -11,7 +11,6 @@ import PrayerSchedule from "@/components/PrayerSchedule";
 import Event from "@/components/Event";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
 
 async function PrayerScheduleWrapper() {
   const prayerData = await getPrayerData();

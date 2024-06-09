@@ -1,28 +1,24 @@
+"use client";
+
 import { PrayerData } from "@/lib/db";
 import { CalculationMethod, Coordinates, PrayerTimes } from "adhan";
 import Image from "next/image";
 import shapes2 from "@/public/shapes-2.png";
+import { useEffect, useState } from "react";
 
 export default function PrayerSchedule(props: { prayerData: PrayerData }) {
   const prayerData = props.prayerData;
   const coordinates = new Coordinates(-37.8226, 145.0354);
   const params = CalculationMethod.MuslimWorldLeague();
-  const dateTimeFormatter = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Australia/Melbourne",
-    timeStyle: "short",
-    dateStyle: "short",
-  });
+
   const today = new Date();
-  let dateStringTuple = dateTimeFormatter
-    .format(today)
-    .split(",")[0]
-    .split("/")
-    .reverse();
-  const dateTuple = dateStringTuple.map((v) => +v);
-  today.setFullYear(dateTuple[0]);
-  today.setMonth(dateTuple[1] - 1);
-  today.setDate(dateTuple[2]);
+  const tomorrow = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() + 1,
+  );
   const prayerTimes = new PrayerTimes(coordinates, today, params);
+  const tomorrowPrayerTimes = new PrayerTimes(coordinates, tomorrow, params);
 
   const prayerNames = [
     "fajr",
@@ -38,49 +34,41 @@ export default function PrayerSchedule(props: { prayerData: PrayerData }) {
     timeStyle: "short",
   });
 
-  const finalPrayerTimes = [
-    ...prayerNames.map((prayer) => {
-      const time = prayerTimes[prayer];
-      if (prayer === "sunrise") {
-        return {
-          name: "sunrise",
-          adhan: formatter.format(time).toLowerCase(),
-          iqamah: "--:--",
-        };
-      }
+  const finalPrayerTimes = prayerNames.map((prayer) => {
+    const time = prayerTimes[prayer];
 
+    let iqamah: string;
+    if (prayer === "sunrise") {
+      iqamah = "--:--";
+    } else {
       const iqamahData = prayerData[prayer];
-      let iqamah: string;
-      if (iqamahData.type === "fixed") {
-        iqamah = iqamahData.iqamah;
-      } else {
-        iqamah = formatter.format(
-          new Date(time.getTime() + iqamahData.offset * 60000),
-        );
-      }
+      iqamah =
+        iqamahData.type === "fixed"
+          ? iqamahData.iqamah
+          : formatter.format(
+              new Date(time.getTime() + iqamahData.offset * 60000),
+            );
+    }
 
-      return {
-        name: prayer,
-        adhan: formatter.format(time),
-        iqamah,
-      };
-    }),
-  ];
+    return {
+      name: prayer,
+      adhan: formatter.format(time),
+      iqamah,
+    };
+  });
 
-  const nextPrayer = prayerTimes.nextPrayer();
-  let secToNextPrayer = -1;
-  let minutesToNextPrayer = -1;
-  let hourToNextPrayer = -1;
-  const timeForNextPrayer = prayerTimes.timeForPrayer(nextPrayer);
-  if (timeForNextPrayer) {
-    secToNextPrayer = Math.floor(
-      (timeForNextPrayer.getTime() - Date.now()) / 1000,
-    );
-    minutesToNextPrayer = Math.floor(secToNextPrayer / 60);
+  const timeForNextPrayer =
+    prayerTimes.timeForPrayer(prayerTimes.nextPrayer()) ??
+    tomorrowPrayerTimes.fajr;
+  const [countdown, setCountdown] = useState(getCountdown(timeForNextPrayer));
 
-    hourToNextPrayer = Math.floor(minutesToNextPrayer / 60);
-    minutesToNextPrayer = minutesToNextPrayer % 60;
-  }
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCountdown(getCountdown(timeForNextPrayer));
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [timeForNextPrayer]);
 
   return (
     <div className="relative z-0 flex flex-col items-center bg-[#144560] p-4 px-5 text-white lg:order-1 lg:max-w-[450px] lg:px-9">
@@ -98,16 +86,21 @@ export default function PrayerSchedule(props: { prayerData: PrayerData }) {
       />
       <div className="pb-2 text-4xl font-[850] text-[#C59A5D]">Prayer Time</div>
       <div className="pb-3 text-xl">Prayer time in Swinburne Musalla</div>
-      {timeForNextPrayer && (
-        <div className="flex w-full justify-between rounded-xl bg-[#C59A5D] px-2 font-bold">
-          <span>
-            Next: <span className="capitalize">{nextPrayer}</span>
+      <div className="flex w-full justify-between rounded-xl bg-[#C59A5D] px-2 font-bold">
+        <span>
+          Next:{" "}
+          <span className="capitalize">
+            {prayerTimes.nextPrayer() === "none"
+              ? "fajr"
+              : prayerTimes.nextPrayer()}
           </span>
-          <span>
-            {hourToNextPrayer}h {minutesToNextPrayer}min
-          </span>
-        </div>
-      )}
+        </span>
+        <span>
+          {countdown.hours !== 0 && `${countdown.hours}h`}{" "}
+          {countdown.minutes !== 0 && `${countdown.minutes}min`}{" "}
+          {countdown.seconds}s
+        </span>
+      </div>
 
       <table className="w-full text-lg">
         <thead>
@@ -157,4 +150,20 @@ export default function PrayerSchedule(props: { prayerData: PrayerData }) {
       </div>
     </div>
   );
+}
+
+function getCountdown(timeForNextPrayer: Date) {
+  let secToNextPrayer = Math.floor(
+    (timeForNextPrayer.getTime() - Date.now()) / 1000,
+  );
+  let minutesToNextPrayer = Math.floor(secToNextPrayer / 60);
+  secToNextPrayer = secToNextPrayer % 60;
+  let hourToNextPrayer = Math.floor(minutesToNextPrayer / 60);
+  minutesToNextPrayer = minutesToNextPrayer % 60;
+
+  return {
+    hours: hourToNextPrayer,
+    minutes: minutesToNextPrayer,
+    seconds: secToNextPrayer,
+  };
 }
