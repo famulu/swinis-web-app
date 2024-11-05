@@ -89,7 +89,10 @@ export default function Countdown(props: {
         ))}
       </div>
       {props.eventLink && (
-        <a href={props.eventLink} className="text-lg">
+        <a
+          href={props.eventLink}
+          className="text-lg underline hover:no-underline"
+        >
           Register Here
         </a>
       )}

@@ -11,7 +11,6 @@ import PrayerSchedule from "@/components/PrayerSchedule";
 import Event from "@/components/Event";
 import { Suspense } from "react";
 
-
 async function PrayerScheduleWrapper() {
   const prayerData = await getPrayerData();
 
@@ -184,7 +183,7 @@ export default function Page() {
             <h2 className="text-2xl font-bold text-[#144560]">Contact Us</h2>
             <div className="pt-2">
               GS308 (Brothers), GS305 (Sisters) | Level 3, George Building (GS),
-              Swinburne University of Technology (Hawthorn Campus )
+              Swinburne University of Technology (Hawthorn Campus)
             </div>
             <div className="flex items-center gap-1 pt-2">
               <MdEmail />
