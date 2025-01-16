@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { openSans, yesevaOne, signika, garamond } from "@/lib/fonts";
+import { openSans, yesevaOne, signika, garamond, msMadi, bodoniModa } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "SWINIS",
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${openSans.variable} ${yesevaOne.variable} ${signika.variable} ${garamond.variable}`}
+      className={`${openSans.variable} ${yesevaOne.variable} ${signika.variable} ${garamond.variable} ${msMadi.variable} ${bodoniModa.variable}`}
     >
       <body className="font-sans">{children}</body>
     </html>

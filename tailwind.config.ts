@@ -63,6 +63,8 @@ const config = {
         sans: ["var(--font-open-sans)"],
         signika: ["var(--font-signika)"],
         garamond: ["var(--font-eb-garamond)"],
+        msMadi: ["var(--font-ms-madi)"],
+        bodoniModa: ["var(--font-bodoni-moda)"]
       },
       keyframes: {
         "accordion-down": {

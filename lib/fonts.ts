@@ -1,5 +1,11 @@
-import { EB_Garamond, Open_Sans, Signika } from "next/font/google";
-import { Yeseva_One } from "next/font/google";
+import {
+  Bodoni_Moda,
+  EB_Garamond,
+  Ms_Madi,
+  Open_Sans,
+  Signika,
+  Yeseva_One,
+} from "next/font/google";
 
 export const yesevaOne = Yeseva_One({
   subsets: ["latin"],
@@ -25,4 +31,18 @@ export const garamond = EB_Garamond({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-eb-garamond",
+});
+
+export const msMadi = Ms_Madi({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-ms-madi",
+});
+
+export const bodoniModa = Bodoni_Moda({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-bodoni-moda",
 });
