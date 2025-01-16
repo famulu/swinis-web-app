@@ -154,7 +154,7 @@ export default function Page() {
           </div>
         </div>
       </main>
-      <footer className="bg-[#95B0C9] p-2 text-xs text-white lg:p-3">
+      <footer className="bg-[#95B0C9] p-2 text-xs text-[#372C2C] lg:p-3 lg:text-base">
         <div className="flex gap-4 lg:gap-32">
           <div className="grow basis-0">
             <h2 className="text-2xl font-bold text-[#144560]">About Us</h2>
